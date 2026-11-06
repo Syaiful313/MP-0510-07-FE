@@ -81,6 +81,7 @@ const EventDetailPage: FC<EventDetailPageProps> = ({ eventId }) => {
                 src={data.thumbnail}
                 alt={data.title}
                 fill
+                sizes="(max-width: 1024px) 100vw, (max-width: 1440px) calc(100vw - 480px), 960px"
                 className="object-cover"
                 priority
               />

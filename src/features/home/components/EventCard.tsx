@@ -26,6 +26,7 @@ const EventCard: FC<EventCardProps> = ({ event }) => {
             src={event.thumbnail}
             alt={event.title}
             fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="transform object-cover transition-transform duration-500 group-hover:scale-105"
           />
           <div className="absolute right-3 top-3">

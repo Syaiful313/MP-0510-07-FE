@@ -133,7 +133,8 @@ export function HeroSection() {
                   src={event.thumbnail}
                   alt={event.title}
                   fill
-                  className="duration-[2s] object-cover transition-transform ease-in-out hover:scale-105"
+                  sizes="100vw"
+                  className="[transition-duration:2s] object-cover transition-transform ease-in-out hover:scale-105"
                   priority
                 />
               </div>
