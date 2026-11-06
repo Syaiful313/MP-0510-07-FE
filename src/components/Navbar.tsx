@@ -74,11 +74,8 @@ const Navbar = () => {
     >
       <div className="mx-auto w-full max-w-8xl px-4">
         <div className="flex h-20 items-center justify-between">
-          <Link
-            href="/"
-            className="group flex items-center gap-2 transition-all duration-300 hover:-translate-y-0.5"
-          >
-            <div className="rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 p-2 shadow-lg shadow-emerald-200 dark:shadow-emerald-800">
+          <Link href="/" className="flex items-center gap-2">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-600">
               <span className="font-serif text-2xl font-bold text-white">
                 S
               </span>
