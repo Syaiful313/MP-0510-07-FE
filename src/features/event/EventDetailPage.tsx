@@ -2,7 +2,6 @@
 
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,10 +11,9 @@ import {
   CardHeader,
   CardTitle
 } from "@/components/ui/card";
-import useGetEvent from "@/hooks/api/event/useGetEvent";
-import { format } from "date-fns";
+import { Event } from "@/types/event";
+import { GetEventReviewsResponse } from "@/types/review";
 import {
-  AlertCircle,
   ArrowRight,
   Building,
   Calendar,
@@ -27,20 +25,22 @@ import {
   Star,
   Users
 } from 'lucide-react';
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { FC, useState } from "react";
 import ContentTabs from "./components/ContentTabs";
-import SkeletonEvent from "./components/SkeletonEvent";
 import { TransactionForm } from "./components/TransactionForm";
 
 interface EventDetailPageProps {
-  eventId: number;
+  event: Event;
+  isEventFinished: boolean;
+  reviews: GetEventReviewsResponse | null;
 }
 
-const EventDetailPage: FC<EventDetailPageProps> = ({ eventId }) => {
-  const session = useSession();
-  const { data, isPending, error } = useGetEvent(eventId);
+const EventDetailPage: FC<EventDetailPageProps> = ({
+  event: data,
+  isEventFinished,
+  reviews,
+}) => {
   const [showTransactionForm, setShowTransactionForm] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
 
@@ -50,24 +50,20 @@ const EventDetailPage: FC<EventDetailPageProps> = ({ eventId }) => {
       currency: "IDR",
     }).format(price);
   };
-
-  if (isPending) return <SkeletonEvent />;
-
-  if (error || !data) {
-    return (
-      <div className="mx-auto max-w-8xl px-4 py-16">
-        <Alert variant="destructive" className="flex items-center gap-2">
-          <AlertCircle className="h-5 w-5" />
-          <div>
-            <AlertTitle className="text-lg font-semibold">Error</AlertTitle>
-            <AlertDescription className="mt-1">
-              {error?.message || "Event not found or has been removed."}
-            </AlertDescription>
-          </div>
-        </Alert>
-      </div>
-    );
-  }
+  const startDate = new Date(data.startDate);
+  const eventDate = new Intl.DateTimeFormat("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "Asia/Jakarta",
+  }).format(startDate);
+  const eventTime = new Intl.DateTimeFormat("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+    timeZone: "Asia/Jakarta",
+  }).format(startDate);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -147,7 +143,11 @@ const EventDetailPage: FC<EventDetailPageProps> = ({ eventId }) => {
               </CardContent>
             </Card>
 
-            <ContentTabs data={data} />
+            <ContentTabs
+              data={data}
+              isEventFinished={isEventFinished}
+              reviews={reviews}
+            />
           </div>
 
           <div className="lg:sticky lg:top-24">
@@ -171,10 +171,10 @@ const EventDetailPage: FC<EventDetailPageProps> = ({ eventId }) => {
                   <div>
                     <div className="font-medium text-gray-900">Date & Time</div>
                     <div className="space-y-1 text-sm text-gray-600">
-                      <div>{format(new Date(data.startDate), "EEEE, MMMM d, yyyy")}</div>
+                      <div>{eventDate}</div>
                       <div className="flex items-center gap-2">
                         <Clock className="h-4 w-4" />
-                        {format(new Date(data.startDate), "h:mm a")}
+                        {eventTime}
                       </div>
                     </div>
                   </div>

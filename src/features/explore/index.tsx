@@ -1,27 +1,17 @@
-"use client";
-
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
+import { Event } from "@/types/event";
+import { PageableResponse } from "@/types/pagination";
 import ExploreList from "./components/ExploreList";
-import { ArrowUp } from "lucide-react";
-import { useEffect, useState } from "react";
 
-const ExplorePage = () => {
-  const [showScrollTop, setShowScrollTop] = useState(false);
+interface ExplorePageProps {
+  data: PageableResponse<Event> | null;
+  search: string;
+  category: string;
+}
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 400);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
+const ExplorePage = ({ data, search, category }: ExplorePageProps) => {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="sticky top-0 z-50 w-full border-b bg-white">
@@ -31,24 +21,14 @@ const ExplorePage = () => {
       </div>
 
       <div className="w-full">
-        <ExploreList />
+        <ExploreList data={data} search={search} category={category} />
       </div>
 
       <div className="border-t bg-white">
         <Footer />
       </div>
 
-      <button
-        onClick={scrollToTop}
-        className={`fixed bottom-8 right-8 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-600 text-white shadow-lg transition-all duration-300 hover:bg-emerald-700 hover:shadow-xl ${
-          showScrollTop
-            ? "translate-y-0 opacity-100"
-            : "translate-y-16 opacity-0"
-        }`}
-        aria-label="Scroll to top"
-      >
-        <ArrowUp className="h-5 w-5" />
-      </button>
+      <ScrollToTopButton threshold={400} />
 
       <div className="pointer-events-none fixed inset-0 z-0 bg-gradient-to-b from-transparent via-transparent to-white/10" />
     </div>

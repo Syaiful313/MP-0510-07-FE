@@ -1,22 +1,26 @@
 "use client"
 import React, { useState } from 'react';
 import useCreateReview from '@/hooks/api/review/useCreateReview';
-import useGetEventReviews from '@/hooks/api/review/useGetEventReviews';
+import { GetEventReviewsResponse } from '@/types/review';
 import { Star } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { useRouter } from 'next/navigation';
 
 interface ReviewSectionProps {
   eventId: number;
   isEventFinished: boolean;
+  reviews: GetEventReviewsResponse | null;
 }
 
-const ReviewSection: React.FC<ReviewSectionProps> = ({ eventId, isEventFinished }) => {
-  const { mutate: createReview, status: createStatus } = useCreateReview();
+const ReviewSection: React.FC<ReviewSectionProps> = ({
+  eventId,
+  isEventFinished,
+  reviews,
+}) => {
+  const { mutateAsync: createReview, status: createStatus } = useCreateReview();
+  const router = useRouter();
   const createLoading = createStatus === 'pending';
-  const { data: reviewsData, isLoading: isLoadingReviews } = useGetEventReviews({ 
-    eventId 
-  });
   
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
@@ -25,13 +29,14 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({ eventId, isEventFinished 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      createReview({
+      await createReview({
         eventId,
         rating,
         comment
       });
       setRating(0);
       setComment('');
+      router.refresh();
     } catch (error) {
       console.error('Failed to submit review:', error);
     }
@@ -79,12 +84,12 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({ eventId, isEventFinished 
         <CardContent>
           <div className="flex items-center gap-4">
             <div className="text-4xl font-bold">
-              {reviewsData?.data.summary.averageRating.toFixed(1) || '0.0'}
+              {reviews?.data.summary.averageRating.toFixed(1) || '0.0'}
             </div>
             <div>
-              <ReviewStars rating={reviewsData?.data.summary.averageRating || 0} />
+              <ReviewStars rating={reviews?.data.summary.averageRating || 0} />
               <p className="text-sm text-gray-600 mt-1">
-                {reviewsData?.data.summary.totalReviews || 0} reviews
+                {reviews?.data.summary.totalReviews || 0} reviews
               </p>
             </div>
           </div>
@@ -144,13 +149,13 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({ eventId, isEventFinished 
           <CardTitle>All Reviews</CardTitle>
         </CardHeader>
         <CardContent>
-          {isLoadingReviews ? (
-            <p className="text-center text-gray-500">Loading reviews...</p>
-          ) : reviewsData?.data.reviews.length === 0 ? (
+          {!reviews ? (
+            <p className="text-center text-gray-500">Reviews are currently unavailable.</p>
+          ) : reviews.data.reviews.length === 0 ? (
             <p className="text-center text-gray-500">No reviews yet</p>
           ) : (
             <div className="space-y-4">
-              {reviewsData?.data.reviews.map((review) => (
+              {reviews.data.reviews.map((review) => (
                 <div key={review.id}>
                   <div className="flex items-start gap-3">
                     <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
@@ -169,7 +174,9 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({ eventId, isEventFinished 
                       <ReviewStars rating={review.rating} />
                       <p className="mt-2 text-gray-600">{review.comment}</p>
                       <p className="mt-1 text-sm text-gray-400">
-                        {new Date(review.createdAt).toLocaleDateString()}
+                        {new Intl.DateTimeFormat("en-US", {
+                          timeZone: "Asia/Jakarta",
+                        }).format(new Date(review.createdAt))}
                       </p>
                     </div>
                   </div>

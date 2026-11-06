@@ -3,21 +3,37 @@ import Markdown from "@/components/Markdown";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Event } from "@/types/event";
+import { GetEventReviewsResponse } from "@/types/review";
 import { FC } from "react";
 import ReviewSection from "./ReviewSection";
-import { format } from "date-fns";
 
 interface ContentTabsProps {
   data: Event;
+  isEventFinished: boolean;
+  reviews: GetEventReviewsResponse | null;
 }
 
-const ContentTabs: FC<ContentTabsProps> = ({ data }) => {
-  const isEventFinished = new Date(data.endDate) < new Date();
+const ContentTabs: FC<ContentTabsProps> = ({
+  data,
+  isEventFinished,
+  reviews,
+}) => {
   const startDate = new Date(data.startDate);
   const endDate = new Date(data.endDate);
 
   const formatScheduleDate = (date: Date) => {
-    return format(date, "EEEE, dd MMMM yyyy • HH:mm");
+    return new Intl.DateTimeFormat("en-GB", {
+      weekday: "long",
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hourCycle: "h23",
+      timeZone: "Asia/Jakarta",
+    })
+      .format(date)
+      .replace(" at ", " • ");
   };
 
   return (
@@ -69,6 +85,7 @@ const ContentTabs: FC<ContentTabsProps> = ({ data }) => {
         <ReviewSection
           eventId={typeof data.id === "string" ? parseInt(data.id) : data.id}
           isEventFinished={isEventFinished}
+          reviews={reviews}
         />
       </TabsContent>
     </Tabs>

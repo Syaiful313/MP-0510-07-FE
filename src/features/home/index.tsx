@@ -1,8 +1,14 @@
 import Navbar from "@/components/Navbar";
+import { getEventsFromServer } from "@/lib/server-events";
 import EventList from "./components/EventList";
 import { HeroSection } from "./components/HeroSection";
 
-const HomePage = () => {
+const HomePage = async () => {
+  const eventResponse = await getEventsFromServer({ page: 1, take: 10 }).catch(
+    () => null,
+  );
+  const events = eventResponse?.data ?? [];
+
   return (
     <>
       <main className="min-h-screen w-full">
@@ -13,11 +19,11 @@ const HomePage = () => {
         </div>
 
         <div className="mx-auto max-w-8xl px-4 py-16">
-          <HeroSection />
+          <HeroSection events={events.slice(0, 5)} hasError={!eventResponse} />
         </div>
 
         <div>
-          <EventList />
+          <EventList events={events.slice(0, 4)} />
         </div>
 
         <div className="mx-auto max-w-8xl px-4 py-16">

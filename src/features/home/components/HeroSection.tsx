@@ -8,29 +8,25 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
-import useGetEvents from "@/hooks/api/event/useGetEvents";
+import { Event } from "@/types/event";
 import Autoplay from "embla-carousel-autoplay";
 import { ChevronLeft, ChevronRight, Heart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export function HeroSection() {
+interface HeroSectionProps {
+  events: Event[];
+  hasError: boolean;
+}
+
+export function HeroSection({ events, hasError }: HeroSectionProps) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [autoplayRef] = useState(() =>
     Autoplay({ delay: 6000, stopOnInteraction: false }),
   );
   const [isHovered, setIsHovered] = useState(false);
-
-  const {
-    data: events,
-    isLoading,
-    error,
-  } = useGetEvents({
-    page: 1,
-    take: 5,
-  });
 
   useEffect(() => {
     if (!api) return;
@@ -40,26 +36,18 @@ export function HeroSection() {
     });
   }, [api]);
 
-  if (isLoading) {
-    return (
-      <div className="h-[500px] w-full animate-pulse bg-gray-200 md:h-[700px]">
-        <div className="mx-auto flex h-full max-w-8xl items-center justify-center">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-emerald-600 border-t-transparent"></div>
-        </div>
-      </div>
-    );
-  }
-
-  if (error || !events) {
+  if (hasError || !events.length) {
     return (
       <div className="flex h-[500px] w-full items-center justify-center bg-gray-100 md:h-[700px]">
         <div className="text-center">
           <p className="text-lg font-medium text-gray-600">
-            Failed to load events
+            {hasError ? "Failed to load events" : "No upcoming events"}
           </p>
-          <Button className="mt-4" onClick={() => window.location.reload()}>
-            Try Again
-          </Button>
+          {hasError && (
+            <Button className="mt-4" onClick={() => window.location.reload()}>
+              Try Again
+            </Button>
+          )}
         </div>
       </div>
     );
@@ -81,7 +69,7 @@ export function HeroSection() {
         setApi={setApi}
       >
         <CarouselContent>
-          {events.data.map((event, index) => (
+          {events.map((event) => (
             <CarouselItem key={event.id}>
               <div className="relative h-[250px] w-full overflow-hidden md:h-[500px]">
                 <div className="absolute right-6 top-6 z-30 flex items-center gap-3">
@@ -89,8 +77,7 @@ export function HeroSection() {
                     variant="secondary"
                     className="bg-black/60 text-white hover:bg-black/70"
                   >
-                    {Math.floor(Math.random() * 5 + 2)}.
-                    {Math.floor(Math.random() * 9)}K interested
+                    2.4K interested
                   </Badge>
                   <Button
                     size="icon"
@@ -160,7 +147,7 @@ export function HeroSection() {
         </div>
 
         <div className="absolute bottom-8 left-8 z-30 flex space-x-2 md:left-16 lg:left-24">
-          {events.data.map((_, index) => (
+          {events.map((_, index) => (
             <button
               key={index}
               className={`h-2 rounded-full transition-all duration-300 ${

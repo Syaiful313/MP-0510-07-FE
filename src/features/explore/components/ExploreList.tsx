@@ -1,40 +1,18 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import EventCard from "@/features/home/components/EventCard";
-import useGetEvents from "@/hooks/api/event/useGetEvents";
-import { useState } from "react";
-import { useDebounceValue } from "usehooks-ts";
+import { Event } from "@/types/event";
+import { PageableResponse } from "@/types/pagination";
 import { Search, Calendar, Filter } from "lucide-react";
 import Link from "next/link";
 
-const ExploreList = () => {
-  const [search, setSearch] = useState<string>("");
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [debouncedSearch] = useDebounceValue(search, 500);
+interface ExploreListProps {
+  data: PageableResponse<Event> | null;
+  search: string;
+  category: string;
+}
 
-  const { data, isPending } = useGetEvents({
-    search: debouncedSearch,
-    category: selectedCategory,
-  });
-
-  const handleCategoryChange = (category: string) => {
-    setSelectedCategory(category);
-    setSearch("");
-  };
-
-  if (isPending) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-green-50">
-        <div className="flex flex-col items-center space-y-4">
-          <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-300 border-t-emerald-600"></div>
-          <p className="text-lg font-medium text-gray-600">Loading events...</p>
-        </div>
-      </div>
-    );
-  }
-
+const ExploreList = ({ data, search, category }: ExploreListProps) => {
   if (!data) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-green-50">
@@ -65,45 +43,52 @@ const ExploreList = () => {
               <h2 className="text-lg font-semibold text-gray-800">Categories</h2>
             </div>
             <div className="flex flex-wrap gap-3">
-              <Button
+              <Button asChild
                 className={`transition-all duration-300 ${
-                  selectedCategory === ""
+                  category === ""
                     ? "bg-emerald-600 text-white shadow-lg hover:bg-emerald-700"
                     : "bg-green-50 text-gray-700 hover:bg-green-100"
                 }`}
-                onClick={() => handleCategoryChange("")}
               >
-                All Events
+                <Link href="/explore">All Events</Link>
               </Button>
               {["Music", "Sport", "Technology", "Business", "Science", "Art"].map(
-                (category) => (
-                  <Button
-                    key={category}
+                (eventCategory) => (
+                  <Button asChild
+                    key={eventCategory}
                     className={`transition-all duration-300 ${
-                      selectedCategory === category
+                      category === eventCategory
                         ? "bg-emerald-600 text-white shadow-lg hover:bg-emerald-700"
                         : "bg-green-50 text-gray-700 hover:bg-green-100"
                     }`}
-                    onClick={() => handleCategoryChange(category)}
                   >
-                    {category}
+                    <Link href={`/explore?category=${encodeURIComponent(eventCategory)}`}>
+                      {eventCategory}
+                    </Link>
                   </Button>
                 )
               )}
             </div>
           </div>
 
-          <div className="relative">
+          <form action="/explore" method="get" className="relative">
             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
               <Search className="h-5 w-5 text-emerald-600" />
             </div>
             <Input
+              name="search"
+              defaultValue={search}
               placeholder="Search for events..."
-              className="w-full rounded-xl border-gray-200 bg-green-50 py-6 pl-10 pr-4 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-emerald-600 focus:bg-white focus:ring-emerald-600"
-              onChange={(e) => setSearch(e.target.value)}
-              value={search}
+              className="w-full rounded-xl border-gray-200 bg-green-50 py-6 pl-10 pr-28 text-gray-900 shadow-sm transition-all duration-300 placeholder:text-gray-400 focus:border-emerald-600 focus:bg-white focus:ring-emerald-600"
             />
-          </div>
+            {category && <input type="hidden" name="category" value={category} />}
+            <Button
+              type="submit"
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-emerald-600 hover:bg-emerald-700"
+            >
+              Search
+            </Button>
+          </form>
         </div>
 
         {!data.data.length ? (

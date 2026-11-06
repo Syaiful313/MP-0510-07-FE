@@ -1,25 +1,10 @@
-"use client";
-
-import useGetEvents from "@/hooks/api/event/useGetEvents";
-import { Calendar, Loader2 } from "lucide-react";
+import { Event } from "@/types/event";
+import { Calendar } from "lucide-react";
 import Link from "next/link";
 import EventCard from "./EventCard";
 
-const EventList = () => {
-  const { data, isPending } = useGetEvents({});
-
-  if (isPending) {
-    return (
-      <div className="flex min-h-[400px] items-center justify-center">
-        <div className="flex flex-col items-center space-y-4">
-          <Loader2 className="h-8 w-8 animate-spin text-emerald-600" />
-          <p className="text-lg font-medium text-gray-600">Loading events...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (!data) {
+const EventList = ({ events }: { events: Event[] }) => {
+  if (!events.length) {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
         <div className="text-center">
@@ -50,10 +35,10 @@ const EventList = () => {
         </div>
 
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {data?.data.slice(0, 4).map((event, index) => (
+          {events.map((event) => (
             <Link
               href={`/events/${event.id}`}
-              key={index}
+              key={event.id}
               className="group transform transition-all duration-300 hover:-translate-y-1"
             >
               <div className="relative rounded-2xl bg-white shadow-md transition-shadow duration-300 group-hover:shadow-xl">
