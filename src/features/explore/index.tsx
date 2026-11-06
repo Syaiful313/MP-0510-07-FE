@@ -30,11 +30,11 @@ const ExplorePage = () => {
         </div>
       </div>
 
-      <div className="w-full py-8">
+      <div className="w-full">
         <ExploreList />
       </div>
 
-      <div className="mt-20 border-t bg-white">
+      <div className="border-t bg-white">
         <Footer />
       </div>
 

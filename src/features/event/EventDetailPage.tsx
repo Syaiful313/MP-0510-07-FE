@@ -55,7 +55,7 @@ const EventDetailPage: FC<EventDetailPageProps> = ({ eventId }) => {
 
   if (error || !data) {
     return (
-      <div className="mx-auto max-w-8xl px-4 py-8">
+      <div className="mx-auto max-w-8xl px-4 py-16">
         <Alert variant="destructive" className="flex items-center gap-2">
           <AlertCircle className="h-5 w-5" />
           <div>
@@ -73,7 +73,7 @@ const EventDetailPage: FC<EventDetailPageProps> = ({ eventId }) => {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
       
-      <div className="mx-auto max-w-8xl px-4 py-8">
+      <div className="mx-auto max-w-8xl px-4 py-16">
         <div className="mb-12 grid gap-8 lg:grid-cols-[1fr,380px]">
           <div className="space-y-6">
             <div className="relative aspect-video w-full overflow-hidden rounded-2xl">

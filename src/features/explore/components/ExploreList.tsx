@@ -48,7 +48,7 @@ const ExploreList = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
-      <div className="mx-auto max-w-8xl px-4 py-12 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-8xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="mb-12 text-center">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
             Discover Events
