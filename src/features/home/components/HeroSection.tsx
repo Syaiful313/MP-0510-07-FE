@@ -67,7 +67,7 @@ export function HeroSection() {
 
   return (
     <div
-      className="relative mx-3 md:mx-auto h-[250px] max-w-8xl overflow-hidden rounded-2xl bg-black md:h-[500px]"
+      className="relative h-[250px] w-full overflow-hidden rounded-2xl bg-black md:h-[500px]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

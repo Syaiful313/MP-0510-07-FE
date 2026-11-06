@@ -12,7 +12,7 @@ const HomePage = () => {
           </div>
         </div>
 
-        <div className="w-full py-16">
+        <div className="mx-auto max-w-8xl px-4 py-16">
           <HeroSection />
         </div>
 
