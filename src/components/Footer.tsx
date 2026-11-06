@@ -4,7 +4,7 @@ import { CheckIcon, Globe, ChevronRight } from "lucide-react";
 const Footer = () => {
   return (
     <footer className="w-full border-t border-gray-200 bg-white py-12">
-      <div className="mx-auto max-w-7xl px-4">
+      <div className="mx-auto max-w-8xl px-4">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
           <div className="space-y-6">
             <div className="flex items-center gap-3">

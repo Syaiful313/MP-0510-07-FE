@@ -72,7 +72,7 @@ const Navbar = () => {
           : "bg-white dark:bg-gray-900 dark:text-white",
       )}
     >
-      <div className="w-full px-4 lg:container lg:mx-auto lg:max-w-7xl">
+      <div className="mx-auto w-full max-w-8xl px-4">
         <div className="flex h-20 items-center justify-between">
           <Link
             href="/"

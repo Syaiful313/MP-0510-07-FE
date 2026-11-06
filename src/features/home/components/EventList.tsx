@@ -37,7 +37,7 @@ const EventList = () => {
 
   return (
     <section className="bg-gradient-to-b from-green-50/50 to-white">
-      <div className="mx-auto max-w-6xl px-5 md:px-0 py-16 ">
+      <div className="mx-auto max-w-8xl px-5 py-16 md:px-4">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">

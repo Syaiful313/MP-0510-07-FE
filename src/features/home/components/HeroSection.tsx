@@ -43,7 +43,7 @@ export function HeroSection() {
   if (isLoading) {
     return (
       <div className="h-[500px] w-full animate-pulse bg-gray-200 md:h-[700px]">
-        <div className="mx-auto flex h-full max-w-7xl items-center justify-center">
+        <div className="mx-auto flex h-full max-w-8xl items-center justify-center">
           <div className="h-8 w-8 animate-spin rounded-full border-4 border-emerald-600 border-t-transparent"></div>
         </div>
       </div>
@@ -67,7 +67,7 @@ export function HeroSection() {
 
   return (
     <div
-      className="relative mx-3 md:mx-auto h-[250px] max-w-6xl overflow-hidden rounded-2xl bg-black md:h-[500px]"
+      className="relative mx-3 md:mx-auto h-[250px] max-w-8xl overflow-hidden rounded-2xl bg-black md:h-[500px]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

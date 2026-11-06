@@ -16,11 +16,11 @@ const HomePage = () => {
           <HeroSection />
         </div>
 
-        <div className="container mx-auto">
+        <div>
           <EventList />
         </div>
 
-        <div className="container mx-auto mt-20 px-4 pb-10">
+        <div className="mx-auto mt-20 max-w-8xl px-4 pb-10">
           <div className="rounded-xl bg-gray-50 p-6">
             <h2 className="mb-4 text-xl font-semibold text-gray-900">
               About Our Ticket Marketplace

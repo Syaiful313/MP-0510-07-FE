@@ -30,7 +30,7 @@ const ExplorePage = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="w-full py-8">
         <ExploreList />
       </div>
 
