@@ -51,7 +51,7 @@ const Navbar = () => {
           "group flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all",
           isActive
             ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400"
-            : "text-gray-600 hover:bg-gray-50 hover:text-emerald-600 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-emerald-400",
+            : "text-black/70 hover:bg-black/5 hover:text-emerald-600 dark:text-white/70 dark:hover:bg-white/10 dark:hover:text-emerald-400",
         )}
       >
         {Icon && <Icon className="h-4 w-4" />}
@@ -68,8 +68,8 @@ const Navbar = () => {
       className={cn(
         "sticky top-0 z-50 w-full transition-all duration-300",
         isScrolled 
-          ? "bg-white/80 backdrop-blur-lg dark:bg-gray-900/80 dark:text-white" 
-          : "bg-white dark:bg-gray-900 dark:text-white",
+          ? "bg-white/80 backdrop-blur-lg dark:bg-black/80 dark:text-white" 
+          : "bg-white dark:bg-black dark:text-white",
       )}
     >
       <div className="mx-auto w-full max-w-8xl px-4">
@@ -100,12 +100,12 @@ const Navbar = () => {
                 </NavLink>
               )}
 
-            <div className="mx-4 h-6 w-px bg-gray-200 dark:bg-gray-700" />
+            <div className="mx-4 h-6 w-px bg-black/10 dark:bg-white/10" />
 
             {!user?.id && (
               <Link
                 href="/login"
-                className="group flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-2.5 text-sm font-medium text-white transition-all hover:bg-emerald-700 dark:bg-emerald-700 dark:hover:bg-emerald-600"
+                className="group flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-2.5 text-sm font-medium text-white transition-all hover:bg-emerald-700"
               >
                 <UserIcon className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:scale-110" />
                 Sign In
@@ -114,33 +114,33 @@ const Navbar = () => {
 
             {!!user?.id && (
               <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-2 rounded-full border border-gray-200 px-4 py-2.5 text-sm font-medium text-gray-700 transition-all hover:bg-gray-50 hover:text-emerald-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-emerald-400">
+                <DropdownMenuTrigger className="flex items-center gap-2 rounded-full border border-black/10 px-4 py-2.5 text-sm font-medium text-black/75 transition-all hover:bg-black/5 hover:text-emerald-600 dark:border-white/10 dark:bg-black dark:text-white/75 dark:hover:bg-white/10 dark:hover:text-emerald-400">
                   <div className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900">
                     <UserIcon className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                   </div>
                   <span>Account</span>
-                  <ChevronDown className="h-4 w-4 opacity-50 dark:text-gray-400" />
+                  <ChevronDown className="h-4 w-4 opacity-50 dark:text-white/60" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent 
                   align="end" 
-                  className="w-56 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+                  className="w-56 dark:border-white/10 dark:bg-black dark:text-white"
                 >
                   <DropdownMenuLabel className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400">
                     <UserIcon className="h-4 w-4" />
                     My Account
                   </DropdownMenuLabel>
-                  <DropdownMenuSeparator className="dark:bg-gray-700" />
-                  <DropdownMenuItem className="dark:hover:bg-gray-700">
+                  <DropdownMenuSeparator className="dark:bg-white/10" />
+                  <DropdownMenuItem className="dark:hover:bg-white/10">
                     <Link
                       href="/account"
                       className="flex w-full items-center gap-2 dark:text-white"
                     >
-                      <Settings className="h-4 w-4 dark:text-gray-300" />
+                      <Settings className="h-4 w-4 dark:text-white/70" />
                       Profile Settings
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem 
-                    className="text-red-600 dark:text-red-400 dark:hover:bg-gray-700" 
+                  className="text-emerald-700 dark:text-emerald-400 dark:hover:bg-white/10" 
                     onClick={logout}
                   >
                     <span className="flex items-center gap-2">
@@ -152,65 +152,65 @@ const Navbar = () => {
               </DropdownMenu>
             )}
 
-            <div className="ml-4 flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800">
+            <div className="ml-4 flex h-10 w-10 items-center justify-center rounded-full border border-black/10 transition-colors hover:bg-black/5 dark:border-white/10 dark:hover:bg-white/10">
               <ToggleDarkMode />
             </div>
           </div>
 
           {/* Mobile Navigation */}
           <div className="flex items-center gap-4 md:hidden">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 dark:border-gray-700">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 dark:border-white/10">
               <ToggleDarkMode />
             </div>
             <DropdownMenu>
-              <DropdownMenuTrigger className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800">
+              <DropdownMenuTrigger className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 transition-colors hover:bg-black/5 dark:border-white/10 dark:hover:bg-white/10">
                 <Menu className="h-5 w-5 dark:text-white" />
               </DropdownMenuTrigger>
               <DropdownMenuContent 
                 align="end" 
-                className="w-56 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+                className="w-56 dark:border-white/10 dark:bg-black dark:text-white"
               >
-                <DropdownMenuItem className="dark:hover:bg-gray-700">
+                <DropdownMenuItem className="dark:hover:bg-white/10">
                   <Link href="/" className="flex w-full items-center gap-2 dark:text-white">
-                    <Home className="h-4 w-4 dark:text-gray-300" />
+                    <Home className="h-4 w-4 dark:text-white/70" />
                     Home
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="dark:hover:bg-gray-700">
+                <DropdownMenuItem className="dark:hover:bg-white/10">
                   <Link
                     href="/explore"
                     className="flex w-full items-center gap-2 dark:text-white"
                   >
-                    <Compass className="h-4 w-4 dark:text-gray-300" />
+                    <Compass className="h-4 w-4 dark:text-white/70" />
                     Explore
                   </Link>
                 </DropdownMenuItem>
                 {!!user?.id &&
                   (user?.role === "ADMIN" || user?.role === "ORGANIZER") && (
-                    <DropdownMenuItem className="dark:hover:bg-gray-700">
+                    <DropdownMenuItem className="dark:hover:bg-white/10">
                       <Link
                         href="/dashboard"
                         className="flex w-full items-center gap-2 dark:text-white"
                       >
-                        <LayoutDashboard className="h-4 w-4 dark:text-gray-300" />
+                        <LayoutDashboard className="h-4 w-4 dark:text-white/70" />
                         Dashboard
                       </Link>
                     </DropdownMenuItem>
                   )}
-                <DropdownMenuSeparator className="dark:bg-gray-700" />
+                <DropdownMenuSeparator className="dark:bg-white/10" />
                 {!!user?.id ? (
                   <>
-                    <DropdownMenuItem className="dark:hover:bg-gray-700">
+                    <DropdownMenuItem className="dark:hover:bg-white/10">
                       <Link
                         href="/account"
                         className="flex w-full items-center gap-2 dark:text-white"
                       >
-                        <Settings className="h-4 w-4 dark:text-gray-300" />
+                        <Settings className="h-4 w-4 dark:text-white/70" />
                         Profile Settings
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem 
-                      className="text-red-600 dark:text-red-400 dark:hover:bg-gray-700" 
+                    className="text-emerald-700 dark:text-emerald-400 dark:hover:bg-white/10" 
                       onClick={logout}
                     >
                       <span className="flex items-center gap-2">
@@ -220,7 +220,7 @@ const Navbar = () => {
                     </DropdownMenuItem>
                   </>
                 ) : (
-                  <DropdownMenuItem className="dark:hover:bg-gray-700">
+                  <DropdownMenuItem className="dark:hover:bg-white/10">
                     <Link
                       href="/login"
                       className="flex w-full items-center gap-2 text-emerald-600 dark:text-emerald-400"

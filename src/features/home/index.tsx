@@ -11,8 +11,8 @@ const HomePage = async () => {
 
   return (
     <>
-      <main className="min-h-screen w-full">
-        <div className="sticky top-0 z-50 border-b bg-white/80 backdrop-blur-md">
+      <main className="min-h-screen w-full bg-background text-foreground">
+        <div className="sticky top-0 z-50 border-b border-black/10 bg-white/80 backdrop-blur-md dark:border-white/10 dark:bg-black/80">
           <div className="container mx-auto">
             <Navbar />
           </div>
@@ -27,11 +27,11 @@ const HomePage = async () => {
         </div>
 
         <div className="mx-auto max-w-8xl px-4 py-16">
-          <div className="rounded-xl bg-gray-50 p-6">
-            <h2 className="mb-4 text-xl font-semibold text-gray-900">
+          <div className="rounded-xl bg-white p-6 dark:bg-black">
+            <h2 className="mb-4 text-xl font-semibold text-black dark:text-white">
               About Our Ticket Marketplace
             </h2>
-            <p className="text-gray-600">
+            <p className="text-black/70 dark:text-white/70">
               Our marketplace provides a secure platform for buying and selling
               tickets to your favorite events. Whether you're looking for
               concerts, sports, or theater events, we ensure a seamless

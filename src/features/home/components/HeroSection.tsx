@@ -38,9 +38,9 @@ export function HeroSection({ events, hasError }: HeroSectionProps) {
 
   if (hasError || !events.length) {
     return (
-      <div className="flex h-[500px] w-full items-center justify-center bg-gray-100 md:h-[700px]">
+      <div className="flex h-[500px] w-full items-center justify-center bg-white dark:bg-black md:h-[700px]">
         <div className="text-center">
-          <p className="text-lg font-medium text-gray-600">
+          <p className="text-lg font-medium text-black/70 dark:text-white/70">
             {hasError ? "Failed to load events" : "No upcoming events"}
           </p>
           {hasError && (

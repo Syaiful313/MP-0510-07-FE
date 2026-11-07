@@ -66,7 +66,7 @@ const EventDetailPage: FC<EventDetailPageProps> = ({
   }).format(startDate);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white dark:bg-black dark:[--card:0_0%_0%] dark:[--popover:0_0%_0%]">
       <Navbar />
       
       <div className="mx-auto max-w-8xl px-4 py-16">
@@ -89,8 +89,8 @@ const EventDetailPage: FC<EventDetailPageProps> = ({
                   className="group flex h-10 w-10 items-center justify-center rounded-full bg-black/20 backdrop-blur-sm transition-all hover:bg-white"
                 >
                   <Heart 
-                    className={`h-5 w-5 transition-all group-hover:scale-110 group-hover:text-red-500 ${
-                      isLiked ? 'fill-red-500 text-red-500' : 'text-white'
+                    className={`h-5 w-5 transition-all group-hover:scale-110 group-hover:text-emerald-500 ${
+                      isLiked ? 'fill-emerald-500 text-emerald-500' : 'text-white'
                     }`}
                   />
                 </button>
@@ -111,10 +111,10 @@ const EventDetailPage: FC<EventDetailPageProps> = ({
             </div>
 
             <div className="space-y-4">
-              <h1 className="text-3xl font-bold text-gray-900 md:text-4xl">
+              <h1 className="text-3xl font-bold text-black dark:text-white md:text-4xl">
                 {data.title}
               </h1>
-              <p className="text-gray-600">
+              <p className="text-black/65 dark:text-white/65">
                 {data.description}
               </p>
             </div>
@@ -128,15 +128,15 @@ const EventDetailPage: FC<EventDetailPageProps> = ({
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-lg font-bold text-emerald-600">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-50 text-lg font-bold text-emerald-600 dark:bg-emerald-950 dark:text-emerald-400">
                     {data.user.fullname[0]}
                   </div>
                   <div>
-                    <h3 className="font-medium text-gray-900">{data.user.fullname}</h3>
-                    <p className="text-sm text-gray-600">Verified Organizer</p>
+                  <h3 className="font-medium text-black dark:text-white">{data.user.fullname}</h3>
+                    <p className="text-sm text-black/65 dark:text-white/65">Verified Organizer</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
+                <div className="flex items-center gap-2 text-sm text-black/65 dark:text-white/65">
                   <Phone className="h-4 w-4" />
                   Contact organizer
                 </div>
@@ -152,12 +152,12 @@ const EventDetailPage: FC<EventDetailPageProps> = ({
 
           <div className="lg:sticky lg:top-24">
             <Card className="overflow-hidden border-2">
-              <CardHeader className="border-b bg-gray-50 pb-4">
+              <CardHeader className="border-b border-black/10 bg-white pb-4 dark:border-white/10 dark:bg-black">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-2xl font-bold text-gray-900">
+                  <CardTitle className="text-2xl font-bold text-black dark:text-white">
                     {formatPrice(data.price)}
                   </CardTitle>
-                  <Badge className={data.avaliableSeats > 0 ? 'bg-emerald-500' : 'bg-red-500'}>
+                  <Badge className="bg-emerald-600 text-white">
                     {data.avaliableSeats > 0 ? `${data.avaliableSeats} seats left` : 'Sold Out'}
                   </Badge>
                 </div>
@@ -165,12 +165,12 @@ const EventDetailPage: FC<EventDetailPageProps> = ({
 
               <CardContent className="space-y-6 p-6">
                 <div className="flex items-start gap-3">
-                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-emerald-50">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-emerald-50 dark:bg-emerald-950">
                     <Calendar className="h-5 w-5 text-emerald-600" />
                   </div>
                   <div>
-                    <div className="font-medium text-gray-900">Date & Time</div>
-                    <div className="space-y-1 text-sm text-gray-600">
+                    <div className="font-medium text-black dark:text-white">Date & Time</div>
+                    <div className="space-y-1 text-sm text-black/65 dark:text-white/65">
                       <div>{eventDate}</div>
                       <div className="flex items-center gap-2">
                         <Clock className="h-4 w-4" />
@@ -181,29 +181,29 @@ const EventDetailPage: FC<EventDetailPageProps> = ({
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-emerald-50">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-emerald-50 dark:bg-emerald-950">
                     <MapPin className="h-5 w-5 text-emerald-600" />
                   </div>
                   <div>
-                    <div className="font-medium text-gray-900">Location</div>
-                    <div className="text-sm text-gray-600">{data.location}</div>
+                    <div className="font-medium text-black dark:text-white">Location</div>
+                    <div className="text-sm text-black/65 dark:text-white/65">{data.location}</div>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-emerald-50">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-emerald-50 dark:bg-emerald-950">
                     <Users className="h-5 w-5 text-emerald-600" />
                   </div>
                   <div>
-                    <div className="font-medium text-gray-900">Availability</div>
-                    <div className="text-sm text-gray-600">
+                    <div className="font-medium text-black dark:text-white">Availability</div>
+                    <div className="text-sm text-black/65 dark:text-white/65">
                       {data.avaliableSeats} seats remaining
                     </div>
                   </div>
                 </div>
               </CardContent>
 
-              <CardFooter className="border-t bg-gray-50 p-6">
+              <CardFooter className="border-t border-black/10 bg-white p-6 dark:border-white/10 dark:bg-black">
                 <Button
                   className="group w-full gap-2 bg-emerald-600 py-6 text-lg hover:bg-emerald-700"
                   onClick={() => setShowTransactionForm(true)}

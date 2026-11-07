@@ -63,19 +63,19 @@ const ContentTabs: FC<ContentTabsProps> = ({
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <h3 className="font-semibold">Start Date</h3>
-              <p className="text-gray-600">{formatScheduleDate(startDate)}</p>
+            <p className="text-black/65 dark:text-white/65">{formatScheduleDate(startDate)}</p>
             </div>
             <div className="space-y-2">
               <h3 className="font-semibold">End Date</h3>
-              <p className="text-gray-600">{formatScheduleDate(endDate)}</p>
+            <p className="text-black/65 dark:text-white/65">{formatScheduleDate(endDate)}</p>
             </div>
             <div className="space-y-2">
               <h3 className="font-semibold">Location</h3>
-              <p className="text-gray-600">{data.location}</p>
+            <p className="text-black/65 dark:text-white/65">{data.location}</p>
             </div>
             <div className="space-y-2">
               <h3 className="font-semibold">Available Seats</h3>
-              <p className="text-gray-600">{data.avaliableSeats} seats</p>
+            <p className="text-black/65 dark:text-white/65">{data.avaliableSeats} seats</p>
             </div>
           </CardContent>
         </Card>

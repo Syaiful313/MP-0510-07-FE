@@ -45,7 +45,7 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({
   const StarRating = ({ filled, hovered }: { filled: boolean; hovered: boolean }) => (
     <Star 
       className={`w-6 h-6 cursor-pointer ${
-        filled || hovered ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'
+        filled || hovered ? 'text-emerald-500 fill-emerald-500' : 'text-black/20 dark:text-white/20'
       }`}
     />
   );
@@ -56,7 +56,7 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({
         <Star 
           key={star}
           className={`w-4 h-4 ${
-            star <= rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'
+            star <= rating ? 'text-emerald-500 fill-emerald-500' : 'text-black/20 dark:text-white/20'
           }`}
         />
       ))}
@@ -67,7 +67,7 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({
     return (
       <Card>
         <CardContent className="pt-6">
-          <p className="text-center text-gray-500">
+          <p className="text-center text-black/60 dark:text-white/60">
             Reviews can only be submitted after the event has finished.
           </p>
         </CardContent>
@@ -88,7 +88,7 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({
             </div>
             <div>
               <ReviewStars rating={reviews?.data.summary.averageRating || 0} />
-              <p className="text-sm text-gray-600 mt-1">
+              <p className="text-sm text-black/65 mt-1 dark:text-white/65">
                 {reviews?.data.summary.totalReviews || 0} reviews
               </p>
             </div>
@@ -124,7 +124,7 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({
             <div>
               <label className="block text-sm font-medium mb-2">Comment</label>
               <textarea
-                className="w-full min-h-[100px] p-3 border rounded-md resize-none"
+                className="w-full min-h-[100px] p-3 border border-black/15 rounded-md resize-none bg-white text-black placeholder:text-black/40 dark:border-white/15 dark:bg-black dark:text-white dark:placeholder:text-white/40"
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
                 required
@@ -136,7 +136,7 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({
               disabled={createLoading || rating === 0}
               className="w-full bg-primary text-primary-foreground hover:bg-primary/90 
                        px-4 py-2 rounded-md transition-colors
-                       disabled:bg-gray-400 disabled:cursor-not-allowed"
+                       disabled:bg-emerald-600/40 disabled:cursor-not-allowed"
             >
               {createLoading ? 'Submitting...' : 'Submit Review'}
             </button>
@@ -150,15 +150,15 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({
         </CardHeader>
         <CardContent>
           {!reviews ? (
-            <p className="text-center text-gray-500">Reviews are currently unavailable.</p>
+            <p className="text-center text-black/60 dark:text-white/60">Reviews are currently unavailable.</p>
           ) : reviews.data.reviews.length === 0 ? (
-            <p className="text-center text-gray-500">No reviews yet</p>
+            <p className="text-center text-black/60 dark:text-white/60">No reviews yet</p>
           ) : (
             <div className="space-y-4">
               {reviews.data.reviews.map((review) => (
                 <div key={review.id}>
                   <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center dark:bg-emerald-950">
                       {review.user.profilePicture ? (
                         <img 
                           src={review.user.profilePicture}
@@ -166,14 +166,14 @@ const ReviewSection: React.FC<ReviewSectionProps> = ({
                           className="w-full h-full rounded-full object-cover"
                         />
                       ) : (
-                        <span className="text-gray-600">{review.user.fullname[0]}</span>
+                        <span className="text-emerald-700 dark:text-emerald-400">{review.user.fullname[0]}</span>
                       )}
                     </div>
                     <div className="flex-1">
                       <p className="font-medium">{review.user.fullname}</p>
                       <ReviewStars rating={review.rating} />
-                      <p className="mt-2 text-gray-600">{review.comment}</p>
-                      <p className="mt-1 text-sm text-gray-400">
+                      <p className="mt-2 text-black/65 dark:text-white/65">{review.comment}</p>
+                      <p className="mt-1 text-sm text-black/50 dark:text-white/50">
                         {new Intl.DateTimeFormat("en-US", {
                           timeZone: "Asia/Jakarta",
                         }).format(new Date(review.createdAt))}
